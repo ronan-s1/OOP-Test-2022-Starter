@@ -19,23 +19,19 @@ public class NematodeVisualiser extends PApplet
 			case LEFT:
 			{
 				i--;
-				if(i == 0)
+				if(i == -1)
 				{
 					i = nematodes.size() - 1;
 				}
-				
-				background(0);
 				break;
 			}
-
 			case RIGHT:
 			{
 				i++;
-				if(i == nematodes.size() - 1)
+				if(i == nematodes.size())
 				{
 					i = 0;
 				}
-				background(0);
 				break;
 			}	
 		}	

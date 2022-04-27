@@ -88,34 +88,65 @@ public class Nematode
         this.eyes = eyes;
     }
 
-    public void render(NematodeVisualiser nv, float c)
+    public void render(NematodeVisualiser nemaV, float c)
     {
-        nv.background(0);
-        int nemaWidth = 40;
+        nemaV.background(0);
+        int nemaSize = 45;
         int sizeOfText = 20;
 
-        nv.fill(255);
+        nemaV.fill(255);
         
-        nv.textSize(sizeOfText);
-        nv.textAlign(PApplet.CENTER, PApplet.CENTER);
-        nv.text(name, nv.width/2, (nv.height/2 - (length/2 * nemaWidth) - (sizeOfText * 3)));
+        nemaV.textSize(sizeOfText);
+        nemaV.textAlign(PApplet.CENTER, PApplet.CENTER);
+        nemaV.text(name, nemaV.width/2, (nemaV.height/2 - (length/2 * nemaSize) - (sizeOfText * 3)));
 
-        nv.strokeWeight(2);
-        nv.stroke(255);
-        nv.noFill();
+        nemaV.strokeWeight(2);
+        nemaV.stroke(255);
+        nemaV.noFill();
 
         for(int circles = 0; circles < length; circles++)
         {
-            nv.stroke(c, 255, 255);
-            nv.pushMatrix();
-            nv.translate(nv.width/2, (nv.height/2 - (length/2 * nemaWidth)) + (nemaWidth * circles));
-            nv.circle(0, 0, nemaWidth);
+            nemaV.stroke(c, 255, 255);
+            nemaV.strokeWeight(5);
+            nemaV.pushMatrix();
+            nemaV.translate(nemaV.width/2, (nemaV.height/2 - (length/2 * nemaSize)) + (nemaSize * circles));
+            nemaV.circle(0, 0, nemaSize);
 
-            if (circles == length - 1 && eyes)
+            if (length - 1 == circles)
             {
-                nv.circle(0, 0, nemaWidth - 20);
+                switch (gender)
+                {
+                    case "m":
+                    {
+                        nemaV.line(0, nemaSize/2, 0, nemaSize);
+                        nemaV.circle(0, nemaSize + 5, 10);
+                        break;
+                    }
+                    
+                    case "h":
+                    {
+                        nemaV.circle(0, 0, nemaSize/2);
+
+                        nemaV.line(0, nemaSize/2, 0, nemaSize);
+                        nemaV.circle(0, nemaSize + 5, 10);
+                        break;
+                    }
+
+                    case "f":
+                    {
+                        nemaV.circle(0, 0, nemaSize/2);
+                        break;
+                    }
+                }
             }
-            nv.popMatrix();
+
+            if (limbs)
+            {
+                nemaV.line(nemaSize/2, 0, nemaSize, 0);
+                nemaV.line(-nemaSize, 0, -nemaSize/2, 0);
+            }
+
+            nemaV.popMatrix();
         }
 
         
