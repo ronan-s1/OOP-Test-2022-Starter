@@ -88,65 +88,76 @@ public class Nematode
         this.eyes = eyes;
     }
 
-    public void render(NematodeVisualiser nemaV, float c)
+    public void render(NematodeVisualiser pa, float c)
     {
-        nemaV.background(0);
+        pa.stroke(c, 255, 255);
+        pa.background(0);
         int nemaSize = 45;
         int sizeOfText = 20;
 
-        nemaV.fill(255);
+        pa.fill(c, 255, 255);
         
-        nemaV.textSize(sizeOfText);
-        nemaV.textAlign(PApplet.CENTER, PApplet.CENTER);
-        nemaV.text(name, nemaV.width/2, (nemaV.height/2 - (length/2 * nemaSize) - (sizeOfText * 3)));
+        pa.textSize(sizeOfText);
+        pa.textAlign(PApplet.CENTER, PApplet.CENTER);
+        pa.text(name, pa.width/2, (pa.height/2 - (length/2 * nemaSize) - (sizeOfText * 4)));
 
-        nemaV.strokeWeight(2);
-        nemaV.stroke(255);
-        nemaV.noFill();
+        pa.strokeWeight(2);
+        pa.stroke(255);
+        pa.noFill();
 
         for(int circles = 0; circles < length; circles++)
         {
-            nemaV.stroke(c, 255, 255);
-            nemaV.strokeWeight(5);
-            nemaV.pushMatrix();
-            nemaV.translate(nemaV.width/2, (nemaV.height/2 - (length/2 * nemaSize)) + (nemaSize * circles));
-            nemaV.circle(0, 0, nemaSize);
+            pa.stroke(c, 255, 255);
+            pa.strokeWeight(5);
+            pa.pushMatrix();
+            pa.translate(pa.width/2, (pa.height/2 - (length/2 * nemaSize)) + (nemaSize * circles));
+            pa.circle(0, 0, nemaSize);
 
             if (length - 1 == circles)
             {
                 switch (gender)
                 {
+                    case "h":
+                    {
+                        pa.circle(0, 0, nemaSize/2);
+
+                        pa.line(0, nemaSize/2, 0, nemaSize);
+                        pa.circle(0, nemaSize + 5, 10);
+                        break;
+                    }
+
                     case "m":
                     {
-                        nemaV.line(0, nemaSize/2, 0, nemaSize);
-                        nemaV.circle(0, nemaSize + 5, 10);
+                        pa.line(0, nemaSize/2, 0, nemaSize);
+                        pa.circle(0, nemaSize + 5, 10);
                         break;
                     }
                     
-                    case "h":
-                    {
-                        nemaV.circle(0, 0, nemaSize/2);
-
-                        nemaV.line(0, nemaSize/2, 0, nemaSize);
-                        nemaV.circle(0, nemaSize + 5, 10);
-                        break;
-                    }
-
                     case "f":
                     {
-                        nemaV.circle(0, 0, nemaSize/2);
+                        pa.circle(0, 0, nemaSize/2);
                         break;
                     }
                 }
             }
 
-            if (limbs)
+            if (eyes && circles == 0)
             {
-                nemaV.line(nemaSize/2, 0, nemaSize, 0);
-                nemaV.line(-nemaSize, 0, -nemaSize/2, 0);
+                pa.line(15, -15, 30, -30);
+                pa.line(-15, -15, -30, -30);
+
+                pa.circle(-35, -35, 15);
+                pa.circle(35, -35, 15);
             }
 
-            nemaV.popMatrix();
+
+            if (limbs)
+            {
+                pa.line(nemaSize/2, 0, nemaSize, 0);
+                pa.line(-nemaSize, 0, -nemaSize/2, 0);
+            }
+
+            pa.popMatrix();
         }
 
         
