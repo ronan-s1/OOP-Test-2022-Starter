@@ -1,6 +1,7 @@
 package ie.tudublin;
 
 import processing.data.TableRow;
+import javazoom.jl.player.PlayerApplet;
 import processing.core.PApplet;
 
 public class Nematode
@@ -87,28 +88,36 @@ public class Nematode
         this.eyes = eyes;
     }
 
-    public void render(NematodeVisualiser nv)
+    public void render(NematodeVisualiser nv, float c)
     {
         nv.background(0);
         int nemaWidth = 40;
-        int textsize = 50;
-        
+        int sizeOfText = 20;
+
         nv.fill(255);
         
-        nv.textSize(textsize);
+        nv.textSize(sizeOfText);
         nv.textAlign(PApplet.CENTER, PApplet.CENTER);
-        nv.text(name, nv.width/2, (nv.height/2 - (length/2 * nemaWidth) - (textsize * 2)));
+        nv.text(name, nv.width/2, (nv.height/2 - (length/2 * nemaWidth) - (sizeOfText * 3)));
 
         nv.strokeWeight(2);
         nv.stroke(255);
         nv.noFill();
-        
-        for(int seg = 0; seg < length; seg++)
+
+        for(int circles = 0; circles < length; circles++)
         {
+            nv.stroke(c, 255, 255);
             nv.pushMatrix();
-            nv.translate(nv.width/2, (nv.height/2 - (length/2 * nemaWidth)) + (nemaWidth * seg));
+            nv.translate(nv.width/2, (nv.height/2 - (length/2 * nemaWidth)) + (nemaWidth * circles));
             nv.circle(0, 0, nemaWidth);
+
+            if (circles == length - 1 && eyes)
+            {
+                nv.circle(0, 0, nemaWidth - 20);
+            }
             nv.popMatrix();
         }
+
+        
     }
 }
