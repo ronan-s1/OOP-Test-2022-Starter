@@ -24,28 +24,37 @@ public class NematodeVisualiser extends PApplet
 		size(800, 800);
 	}
 
-
 	public void setup() 
 	{
 		colorMode(HSB);
 		background(0);
-		smooth();				
+		smooth();		
+		
+		loadNematodes();
+		displayNematodeData();
 	}
 	
 
 	public void loadNematodes()
 	{
 		Table table = loadTable("nematodes.csv", "header");
-        for(TableRow r:table.rows())
-        {
-            Nematode n = new Nematode(r);
-            nematodes.add(n);
-        }
+
+		for (TableRow r:table.rows())
+		{
+			Nematode n = new Nematode(r);
+			nematodes.add(n);
+		}
 	}
 
+	public void displayNematodeData()
+	{
+		for (Nematode n:nematodes)
+		{
+			System.out.println(n);
+		}
+	}
 
 	public void draw()
-	{
-		loadNematodes();
+	{	
 	}
 }
