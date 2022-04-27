@@ -1,9 +1,10 @@
 package ie.tudublin;
 
 import processing.data.TableRow;
+import processing.core.PApplet;
 
-public class Nematode {
-    
+public class Nematode
+{
     private String name;
     private float length;
     private boolean limbs;
@@ -33,10 +34,8 @@ public class Nematode {
             tr.getInt("limbs") == 1,  
             tr.getString("gender"),
             tr.getInt("eyes") == 1
-
         );
     }
-
 
     public String getName()
     {
@@ -86,5 +85,30 @@ public class Nematode {
     public void setEyes(boolean eyes)
     {
         this.eyes = eyes;
+    }
+
+    public void render(NematodeVisualiser nv)
+    {
+        nv.background(0);
+        int nemaWidth = 40;
+        int textsize = 50;
+        
+        nv.fill(255);
+        
+        nv.textSize(textsize);
+        nv.textAlign(PApplet.CENTER, PApplet.CENTER);
+        nv.text(name, nv.width/2, (nv.height/2 - (length/2 * nemaWidth) - (textsize * 2)));
+
+        nv.strokeWeight(2);
+        nv.stroke(255);
+        nv.noFill();
+        
+        for(int seg = 0; seg < length; seg++)
+        {
+            nv.pushMatrix();
+            nv.translate(nv.width/2, (nv.height/2 - (length/2 * nemaWidth)) + (nemaWidth * seg));
+            nv.circle(0, 0, nemaWidth);
+            nv.popMatrix();
+        }
     }
 }

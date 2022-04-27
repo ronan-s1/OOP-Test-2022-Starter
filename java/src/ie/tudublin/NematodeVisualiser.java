@@ -5,18 +5,43 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.data.Table;
 import processing.data.TableRow;
-
 public class NematodeVisualiser extends PApplet
 {
 
 	ArrayList<Nematode> nematodes = new ArrayList<Nematode>();
 
+	int i = 0;
+
 	public void keyPressed()
-	{		
-		if (keyCode == LEFT)
+	{
+		switch(keyCode)
 		{
-		}		
+			case LEFT:
+			{
+				i--;
+				if(i == 0)
+				{
+					i = nematodes.size() - 1;
+				}
+				
+				background(0);
+				break;
+			}
+
+			case RIGHT:
+			{
+				i++;
+				if(i == nematodes.size() - 1)
+				{
+					i = 0;
+				}
+				background(0);
+				break;
+			}	
+		}	
+					
 	}
+
 
 
 	public void settings()
@@ -50,11 +75,14 @@ public class NematodeVisualiser extends PApplet
 	{
 		for (Nematode n:nematodes)
 		{
-			System.out.println(n);
+			println(n);
 		}
 	}
 
 	public void draw()
-	{	
+	{
+
+		nematodes.get(i).render(this);
+		
 	}
 }
